@@ -1,0 +1,10 @@
+0) Correct the project directories names, add common.h.c for conversion NTOHS NTOHL macro functions
+
+1) Define endianness swap as macro in common.h
+
+2) Add structures to:
+    - ethernet protocol
+    - ip porotocol
+    - udp protocol
+
+3) In common.c add function for udp conversions
