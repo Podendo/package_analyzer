@@ -30,6 +30,8 @@ int main(int argc, char **argv)
     package_cp_buffer(argv[1], package);
 
     printf("\n\nSUCCESS!\n\n");
+    uint32_t byte = 0xAABBCCDD;
+    printf("This is out: 0x%08x\n\n", NTOHL(byte));
     return 0;
 }
 

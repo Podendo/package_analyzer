@@ -3,6 +3,9 @@
 
 #define ETHERNET_CODE_PHRASE "It is ethernet.h"
 
+#define ETH_ADDR_LEN 6
+
+
 #include <inttypes.h>
 #include "common.h"
 
@@ -14,8 +17,8 @@
  *
 */
 struct protocol_eth{
-    uint8_t destination_addr[FRAME_SECTION_6_BYTES];
-    uint8_t source_addr[FRAME_SECTION_6_BYTES];
+    uint8_t destination_addr[ETH_ADDR_LEN];
+    uint8_t source_addr[ETH_ADDR_LEN];
     //TO-DO: type or length?? Wiresharks - type
     uint16_t type;
     uint8_t data[];

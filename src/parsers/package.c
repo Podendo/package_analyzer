@@ -1,4 +1,5 @@
 #include "package.h"
+#include "common.h"
 
 int package_get_size(char *f_pack_pointer)
 {
@@ -40,8 +41,8 @@ int package_cp_buffer(char *f_pack_pointer, uint8_t *p_pack_buffer)
     }
 
     for(int i = 0; i < package_size - 1; i++){
-        p_pack_buffer[i] = fgetc(fp);
-        printf("%c", p_pack_buffer[i]);
+        p_pack_buffer[i] = (fgetc(fp));
+        printf("%x", p_pack_buffer[i]);
     }
 
     error_point:

@@ -2,6 +2,7 @@
 >>CHECK
 
 1) Define endianness swap as macro in common.h
+>>CHECK | not sure
 
 2) Add structures to:
     - ethernet protocol
@@ -14,3 +15,8 @@
 4) protocol headers should not be included to main function
 
 5) void pointer casting on raw data package -> ???
+
+6) define CONSTANTS to protocols frame sizes normally
+>> CHECK
+
+
