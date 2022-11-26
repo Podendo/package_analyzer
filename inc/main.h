@@ -7,12 +7,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "ethernet.h"
-#include "ip.h"
-#include "udp.h"
-#include "image_reader.h"
-
-#include "package.h"
+#include "udp_pack.h"
 
 #endif /*MAIN_H*/
 /*END OF FILE*/
