@@ -20,7 +20,8 @@ int package_get_size(char *f_pack_pointer)
     return package_size;
 }
 
-int package_cp_buffer(char *f_pack_pointer, char *p_pack_buffer)
+
+int package_cp_buffer(char *f_pack_pointer, uint8_t *p_pack_buffer)
 {
     int package_size = 0;
     int return_value = 0;
@@ -31,7 +32,7 @@ int package_cp_buffer(char *f_pack_pointer, char *p_pack_buffer)
         goto error_point;
     }
     
-    p_pack_buffer = (char*)calloc(package_size, sizeof(char));
+    p_pack_buffer = (uint8_t*)calloc(package_size, sizeof(uint8_t));
     FILE *fp;
     fp=fopen(f_pack_pointer, "rb");
     if(fp == NULL){

@@ -10,8 +10,7 @@
 #include "ethernet.h"
 #include "ip.h"
 #include "udp.h"
-#include "image_reader.h"
-
+#include "common.h"
 #include "package.h"
 
 #endif /*MAIN_H*/

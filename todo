@@ -1,4 +1,5 @@
-0) Correct the project directories names, add common.h.c for conversion NTOHS NTOHL macro functions
+0) Correct the project directories names, add common.h.c for conversion NTOHS NTOHL macro functions, reading raw data etc.
+>>CHECK
 
 1) Define endianness swap as macro in common.h
 
@@ -6,5 +7,10 @@
     - ethernet protocol
     - ip porotocol
     - udp protocol
+>>CHECK
 
-3) In common.c add function for udp conversions
+3) ./parses/udp_pack 
+
+4) protocol headers should not be included to main function
+
+5) void pointer casting on raw data package -> ???

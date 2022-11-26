@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     }
 
     printf("package size is: %i bytes\n", package_get_size(argv[1]));
-    char *package = 0;
+    uint8_t *package = 0;
     package_cp_buffer(argv[1], package);
 
     printf("\n\nSUCCESS!\n\n");
