@@ -26,7 +26,7 @@ uint8_t package_get_protocol(uint8_t *package_buffer, int buffer_size)
 {
     uint8_t transport_protocol;
     if (buffer_size < 0){
-        return -1;
+        return 1;
     }
     transport_protocol = package_buffer[PACK_MINLEN - 1];
 

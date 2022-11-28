@@ -10,6 +10,7 @@ void udp_say_hi(void)
 
 void udp_conv(struct protocol_udp *raw_udp, struct protocol_udp *conv_udp)
 {
+    //TO-DO - wireshark byte order MSB->LSB ??? no convertion is needed??
     conv_udp->source_addr = NTOHS(raw_udp->source_addr);
     conv_udp->destination_addr =  NTOHS(raw_udp->destination_addr);
 

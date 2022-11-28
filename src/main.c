@@ -14,7 +14,7 @@ int tmp_func_check(char **argv)
      uint8_t package_protocol = 0;
 
     package_size = package_get_size(argv[1]);
-    if(package_size < 0){
+    if(package_size < 24){
         printf("\nError! Can't read this file!\n");
         return 1;
     }
