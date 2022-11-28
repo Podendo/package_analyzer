@@ -11,6 +11,7 @@
 #define IP_TUBA 0x09
 
 #include <inttypes.h>
+#include "common.h"
 
 struct protocol_ip{
     uint8_t version;
@@ -29,5 +30,7 @@ struct protocol_ip{
 
 void ip_say_hi(void);
 
+
+void ip_conv(struct protocol_ip *raw_ip, struct protocol_ip *conv_ip);
 #endif /*IP_H_*/
 /*END OF FILE*/

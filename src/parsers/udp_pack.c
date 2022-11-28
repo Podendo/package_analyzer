@@ -112,15 +112,25 @@ static inline struct protocol_udp *udp_pack_udp_from_eth(struct protocol_eth *et
 
 void udp_pack_parse(struct udp_pack_data *udp_pack_data)
 {
-    struct protocol_eth *eth;
-    struct protocol_ip *ip;
-    struct protocol_udp *udp;
+
+    //segfault will be here: unitialized memory
+
+    struct protocol_eth *raw_eth;
+    struct protocol_eth *conv_eth;
+
+    struct protocol_ip *raw_ip;
+    struct protocol_ip *conv_ip;
+    struct protocol_udp *raw_udp;
+    struct protocol_udp *conv_udp;
 
     //TO-DO - Here protocols should be covered with conv functions:
-    eth = udp_pack_eth_from_raw(udp_pack_data);
-    ip = udp_pack_ip_from_eth(eth);
-    udp = udp_pack_udp_from_eth(eth);
+    raw_eth = udp_pack_eth_from_raw(udp_pack_data);
+    raw_ip = udp_pack_ip_from_eth(raw_eth);
+    raw_udp = udp_pack_udp_from_eth(raw_eth);
 
+    eth_conv(raw_eth, conv_eth);
+    ip_conv(raw_ip, conv_ip);
+    udp_conv(raw_udp, conv_udp);
 }
 
 

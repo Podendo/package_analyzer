@@ -24,11 +24,12 @@ int tmp_func_check(char **argv)
     int rvalue  = package_cp_buffer(argv[1], buffer);
     printf("\n\n");
     for(int i = 0; i < package_size; i++){
+        if((i)%8 == 0) printf("\n");
         printf("%02x ", buffer[i]);
     }
 
     package_protocol = package_get_protocol(buffer, package_size);
-    printf("package size is: %i bytes\n", package_size);
+    printf("\npackage size is: %i bytes\n", package_size);
     printf("\n\n Package protocol is: %02x", package_protocol);
     printf("\n\nSUCCESS!\n\n");
 

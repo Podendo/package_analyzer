@@ -28,6 +28,11 @@ struct protocol_eth{
 
 void ethernet_say_hi(void);
 
+/**
+ * Convert raw data from protocol field to the one
+ * which can be read by host via NTOHS NTOHL macro
+*/
+void eth_conv(struct protocol_eth *raw_eth, struct protocol_eth *conv_eth);
 
 
 #endif /*ETHERNET_H_*/

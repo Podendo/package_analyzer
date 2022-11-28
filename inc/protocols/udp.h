@@ -4,7 +4,7 @@
 #define UDP_CODE_PHRASE "It is udp.h"
 
 #include <inttypes.h>
-
+#include "common.h"
 
 struct protocol_udp{
     uint16_t source_addr;
@@ -15,6 +15,10 @@ struct protocol_udp{
 };
 
 void udp_say_hi(void);
+
+
+void udp_conv(struct protocol_udp *raw_udp, struct protocol_udp *conv_udp);
+
 
 #endif /*UDP_H_*/
 /*END OF FILE*/
