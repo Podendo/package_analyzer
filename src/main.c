@@ -8,6 +8,33 @@ void v_check_heads(void)
     img_reader_say_hi();
 }
 
+int tmp_func_check(char **argv)
+{
+    int package_size = 0;
+     uint8_t package_protocol = 0;
+
+    package_size = package_get_size(argv[1]);
+    if(package_size < 0){
+        printf("\nError! Can't read this file!\n");
+        return 1;
+    }
+    uint8_t *buffer;
+    
+    package_buff_alloc(&buffer, package_size);
+    int rvalue  = package_cp_buffer(argv[1], buffer);
+    printf("\n\n");
+    for(int i = 0; i < package_size; i++){
+        printf("%02x ", buffer[i]);
+    }
+
+    package_protocol = package_get_protocol(buffer, package_size);
+    printf("package size is: %i bytes\n", package_size);
+    printf("\n\n Package protocol is: %02x", package_protocol);
+    printf("\n\nSUCCESS!\n\n");
+
+    package_buff_free(&buffer);
+    return rvalue;
+}
 
 int main(int argc, char **argv)
 {
@@ -18,21 +45,9 @@ int main(int argc, char **argv)
         printf("Given parameters: %i\n", argc);
         return 1;
     }
-    int package_size = 0;
-    package_size = package_get_size(argv[1]);
-    if(package_size < 0){
-        printf("\nError! Can't read this file!\n");
-        return 1;
-    }
+    int tmp = tmp_func_check(argv);
 
-    printf("package size is: %i bytes\n", package_get_size(argv[1]));
-    uint8_t *package = 0;
-    package_cp_buffer(argv[1], package);
-
-    printf("\n\nSUCCESS!\n\n");
-    uint32_t byte = 0xAABBCCDD;
-    printf("This is out: 0x%08x\n\n", NTOHL(byte));
-    return 0;
+    return tmp;
 }
 
 /*END OF FILE*/

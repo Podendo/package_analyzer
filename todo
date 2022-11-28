@@ -1,3 +1,5 @@
+!!! return value defines - bad decision !!!
+
 0) Correct the project directories names, add common.h.c for conversion NTOHS NTOHL macro functions, reading raw data etc.
 >>CHECK
 
@@ -17,6 +19,15 @@
 5) void pointer casting on raw data package -> ???
 
 6) define CONSTANTS to protocols frame sizes normally
->> CHECK
 
+7) define macro func to pack bytes into >2 bytes variables
 
+tried to check byte order manually, it seems like raw package is as same endianness
+//0_a4_60_16_71_82_10_a3_b8_a_ee_48_8_0_ -- ethernet    // need a swap
+
+//45_0_0_3c_0_0_40_0_39_11_c9_57_8e_fb_27_4e_c0_a8_1_68_ -- ip  // no need
+
+//1_bb_c4_bc_0_28_1_d8_ -- udp  //no need
+
+//d8_45_2f_a_7f_e9_d9_d7_e0_61_ad_82_e5_13_3a_d8_8c_
+//6e_ab_c2_55_a3_73_39_79_26_72_24_df_97_7_ec_ea_ -- udp data   // ??

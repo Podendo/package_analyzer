@@ -2,6 +2,8 @@
 #define ETHERNET_H_
 
 #define ETHERNET_CODE_PHRASE "It is ethernet.h"
+#define ETH_IPV4    0x0800
+#define ETH_IPV6    0x86DD
 
 #define ETH_ADDR_LEN 6
 
@@ -24,9 +26,9 @@ struct protocol_eth{
     uint8_t data[];
 };
 
-
-
 void ethernet_say_hi(void);
+
+
 
 #endif /*ETHERNET_H_*/
 /*END OF FILE*/

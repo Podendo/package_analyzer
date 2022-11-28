@@ -2,9 +2,15 @@
 #define IP_H_
 
 #define IP_CODE_PHRASE "It is ip.h"
+#define IP_IPV4 0x04
+#define IP_ST   0x05
+#define IP_SIP  0x06
+#define IP_IPV6 0x06
+#define IP_IPV7 0x07
+#define IP_PIP  0x08
+#define IP_TUBA 0x09
 
 #include <inttypes.h>
-
 
 struct protocol_ip{
     uint8_t version;
