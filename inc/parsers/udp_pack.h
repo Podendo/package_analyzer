@@ -23,11 +23,13 @@ static int udp_pack_get_size(char *filename);
  *  to storedumped package. Results store in size
  *  allocates heap memory for raw/conv data, add check
 */
-static int udp_pack_alloc(char *filename, struct udp_pack_data *udp_pack_data);
+int udp_pack_init(char *filename, struct udp_pack_data *udp_pack_data);
 /* Frees everything allocated in heap*/
-static int udp_pack_free(struct udp_pack_data *udp_pack_data);
+int udp_pack_deinit(struct udp_pack_data *udp_pack_data);
+/* Returns offset of ethernet struct from given udp raw data*/
+static inline struct protocol_eth *udp_pack_eth_from_raw(struct udp_pack_data *udp_pack_data);
 /**
- * Return offset of ip strcut from given ethernet structure
+ * Return offset of ip struct from given ethernet structure
 */
 static inline  struct protocol_ip *udp_pack_ip_from_eth(struct protocol_eth *eth);
 /**
