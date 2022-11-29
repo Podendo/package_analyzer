@@ -10,6 +10,9 @@
 #define IP_PIP  0x08
 #define IP_TUBA 0x09
 
+
+#define IP_ADDR_LEN 4
+
 #include <inttypes.h>
 #include "common.h"
 
@@ -22,8 +25,14 @@ struct protocol_ip{
     uint8_t time_to_live;
     uint8_t protocol;
     uint16_t header_checksum;
-    uint32_t source_addr;
-    uint32_t destination_addr;
+    uint8_t source_addr[IP_ADDR_LEN];
+    uint8_t destination_addr[IP_ADDR_LEN];
+
+    //uint32_t source_addr;
+    //uint32_t destination_addr;
+
+    //invalid use of flexible array member
+    //uint8_t data[]
     uint8_t data[];
 };
 

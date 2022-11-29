@@ -8,34 +8,6 @@ void v_check_heads(void)
     img_reader_say_hi();
 }
 
-int tmp_func_check(char **argv)
-{
-    int package_size = 0;
-     uint8_t package_protocol = 0;
-
-    package_size = package_get_size(argv[1]);
-    if(package_size < 24){
-        printf("\nError! Can't read this file!\n");
-        return 1;
-    }
-    uint8_t *buffer;
-    
-    package_buff_alloc(&buffer, package_size);
-    int rvalue  = package_cp_buffer(argv[1], buffer);
-    printf("\n\n");
-    for(int i = 0; i < package_size; i++){
-        if((i)%8 == 0) printf("\n");
-        printf("%02x ", buffer[i]);
-    }
-
-    package_protocol = package_get_protocol(buffer, package_size);
-    printf("\npackage size is: %i bytes\n", package_size);
-    printf("\n\n Package protocol is: %02x", package_protocol);
-    printf("\n\nSUCCESS!\n\n");
-
-    package_buff_free(&buffer);
-    return rvalue;
-}
 
 int main(int argc, char **argv)
 {
@@ -46,9 +18,29 @@ int main(int argc, char **argv)
         printf("Given parameters: %i\n", argc);
         return 1;
     }
-    int tmp = tmp_func_check(argv);
 
-    return tmp;
+    printf("___________________________UDP PACK PARSE___________________________\n\n");
+    struct udp_pack_data my_udp;
+    int tmp = udp_pack_init(argv[1], &my_udp);
+    if(tmp == PACK_ALLOC_SUCCESS){
+        printf("\n tmp udp_pack_init result is: %d\n", tmp);
+    }
+    printf("udp_pack_size: %d\n", my_udp.size);
+
+    udp_pack_parse(&my_udp);
+
+    udp_pack_print(&my_udp);
+
+    tmp = udp_pack_deinit(&my_udp);
+    if(tmp == PACK_FREE_SUCCESS){
+        printf("\n tmp udp_pack_deinit result is: %d\n", tmp);
+    }
+
+
+    
+    printf("\n\nSUCCESS!\n\n");
+
+    return 0;
 }
 
 /*END OF FILE*/

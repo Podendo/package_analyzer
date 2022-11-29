@@ -23,6 +23,8 @@ struct protocol_eth{
     uint8_t source_addr[ETH_ADDR_LEN];
     //TO-DO: type or length?? Wiresharks - type
     uint16_t type;
+    // Comp error: invalid use of flexible array member
+    //uint8_t data[];
     uint8_t data[];
 };
 

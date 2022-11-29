@@ -10,14 +10,12 @@ void ethernet_say_hi(void)
 
 void eth_conv(struct protocol_eth *raw_eth, struct protocol_eth *conv_eth)
 {
-    conv_eth->type = NTOHS(raw_eth->type);
-
-    for(int byte = 0; byte < ETH_ADDR_LEN; byte++){
-        conv_eth->source_addr[byte] = raw_eth->source_addr[byte];
-        conv_eth->destination_addr[ETH_ADDR_LEN + byte] = raw_eth->destination_addr[ETH_ADDR_LEN + byte];
+    for(int i = 0; i < ETH_ADDR_LEN; i++){
+        conv_eth->source_addr[i]=raw_eth->source_addr[i];
+        conv_eth->destination_addr[i] = raw_eth->destination_addr[i];
     }
-    conv_eth->data[0] = raw_eth->data[0];
-
+    
+    conv_eth->type = NTOHS(raw_eth->type);
 }
 
 /*END OF FILE*/

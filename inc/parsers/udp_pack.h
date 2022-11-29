@@ -16,7 +16,7 @@ struct udp_pack_data{
  * TODO - maybe i should analyse raw package in package.c
  * for getting raw data to buffer, length, transport protocol?
 */
-static int udp_pack_get_size(char *filename);
+//static int udp_pack_get_size(char *filename);
 /**
  * Use udp_pack get size to determine how much memory
  *  is required for udp_pack_data->raw_data/convdata
@@ -24,24 +24,36 @@ static int udp_pack_get_size(char *filename);
  *  allocates heap memory for raw/conv data, add check
 */
 int udp_pack_init(char *filename, struct udp_pack_data *udp_pack_data);
+
+
 /* Frees everything allocated in heap*/
 int udp_pack_deinit(struct udp_pack_data *udp_pack_data);
+
+
 /* Returns offset of ethernet struct from given udp raw data*/
-static inline struct protocol_eth *udp_pack_eth_from_raw(struct udp_pack_data *udp_pack_data);
+//static inline struct protocol_eth *udp_pack_eth_from_raw(struct udp_pack_data *udp_pack_data);
+
+
 /**
  * Return offset of ip struct from given ethernet structure
 */
-static inline  struct protocol_ip *udp_pack_ip_from_eth(struct protocol_eth *eth);
+//static inline  struct protocol_ip *udp_pack_ip_from_eth(struct protocol_eth *eth);
+
+
 /**
  * Return offset of udp struct from given ethernet structure
 */
-static inline struct protocol_udp *udp_pack_udp_from_eth(struct protocol_eth *eth);
+//static inline struct protocol_udp *udp_pack_udp_from_eth(struct protocol_eth *eth);
+
+
 /**
  * main parser logic is implemented here. Stage by stage parse raw
  *  datainto conv_data. Use inline functions to get offset to needed
  *  structure in order to pass them to XXX_conv functions
 */
 void udp_pack_parse(struct udp_pack_data *udp_pack_data);
+
+
 /**
  * Based on conv data, prints all the fileds of ethernet, ip, udp
  *  structs with filed name. Converted UDP data should be printed

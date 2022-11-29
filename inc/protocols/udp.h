@@ -11,6 +11,8 @@ struct protocol_udp{
     uint16_t destination_addr;
     uint16_t length;
     uint16_t checksum;
+    //invalid use of flexible array member
+    //uint8_t data[];
     uint8_t data[];
 };
 
