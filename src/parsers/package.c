@@ -68,7 +68,6 @@ int package_cp_buffer(char *file_pack_pointer, uint8_t *p_pack_buffer)
 
     error_point:
     fclose(fp);
-    
     return return_value;
 }
 

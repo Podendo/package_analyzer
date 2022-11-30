@@ -1,0 +1,46 @@
+#! /bin/bash
+
+# command examples: ./bashscr 1 or ./basscr 2 - parse 2 first packages in 
+#   PACK_DIR directory.
+#
+# This is an execution file path and
+# directory with raw packages filepath
+# Code phrase: all, or number of packs to parse
+
+PARS_DIR=$(pwd);
+ELF_FILE=$PARS_DIR/ans;
+PACK_DIR=$PARS_DIR/testpack;
+PACKAGES=$(ls $PACK_DIR | wc -l);
+PARS_CNT=$1;
+
+if [ "$PACKAGES" -eq "0" ]; then
+    echo "No package to parse"
+    exit
+elif [ "$PACKAGES" -lt "$PARS_CNT" ]; then
+    echo "Try to choose less packages to parse"
+    exit
+fi
+
+echo "$ELF_FILE"
+echo "$PACKAGES"
+
+echo "Parsing files:"
+
+declare -a arrFILES
+for file in $PACK_DIR/*;
+do 
+    arrFILES=(${arrFILES[@]} "$file")
+done
+
+echo Number of packages: ${#arrFILES[@]}
+echo Packages:
+echo ${arrFILES[@]}
+for file in ${arrFILES[@]:0:$PARS_CNT};
+do
+    $ELF_FILE $file
+    wait $!
+done
+unset arrFILES
+
+
+#END OF FILE

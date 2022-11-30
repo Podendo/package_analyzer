@@ -65,7 +65,7 @@ int udp_pack_init(char *filename, struct udp_pack_data *udp_pack_data)
 
     if(package_size == ERR_FILEREAD){
         return_value = ERR_NO_ALLOC;
-        goto error_force_out;
+        return return_value;
     }
     
     udp_pack_data->size = package_size;
@@ -75,21 +75,17 @@ int udp_pack_init(char *filename, struct udp_pack_data *udp_pack_data)
     
     if(package_cp_buffer(filename, udp_pack_data->raw_data) != 0){
         return_value = ERR_CPBUFFER;
-        goto error_force_out;
+        return return_value;
     }
     
     protocol_type = package_get_protocol(udp_pack_data->raw_data, package_size);
     if(protocol_type == 0x11){
         return_value = ERR_WRONG_PACK;
-        goto error_force_out;
+        return return_value;
     }
     
     return_value = PACK_ALLOC_SUCCESS;
 
-    return return_value;
-
-    error_force_out:
-    printf("Error, can`t work with this pack\n");
     return return_value;
 }
 
@@ -157,14 +153,15 @@ void udp_pack_print(struct udp_pack_data *udp_pack_data)
 
 
     printf("\n______________ U D P ______________\n");
-
+/*
     printf("\n\nNTOH DATA:\n");
     printf("\nPackage size: %d\n", udp_pack_data->size);
     for(uint32_t i = 0; i < udp_pack_data->size; i++){
-        if(i % 8 == 0) printf("\n");
+        if(i % 8 == 0) printf("\t");
+        if(i % 16 == 0) printf("\n");
         printf("%02x ", udp_pack_data->raw_data[i]);
     }
-
+*/
     printf("\n\nEthernet protocol:\n");
 
     printf("source address:\t");
@@ -189,10 +186,12 @@ void udp_pack_print(struct udp_pack_data *udp_pack_data)
     printf("Ip time to live:  0x%02x\n", ip->time_to_live);
     printf("Ip protocol:  0x%02x\n", ip->protocol);
     printf("checksum ip:  0x%02x\n", ip->header_checksum);
+    
     printf("\nSource address:\n");
     for(int i = 0; i < IP_ADDR_LEN; i++){
         printf("%d:", ip->source_addr[i]);
     }printf("\n");
+    
     printf("Destination address:\n");
     for(int i = 0; i < IP_ADDR_LEN; i++){
         printf("%d:", ip->destination_addr[i]);
