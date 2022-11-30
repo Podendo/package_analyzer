@@ -61,10 +61,13 @@ int udp_pack_init(char *filename, struct udp_pack_data *udp_pack_data)
 {
     int return_value, package_size, protocol_type;
 
+    udp_pack_data->raw_data = NULL;
+    udp_pack_data->ntoh_data = NULL;
+
     package_size = udp_pack_get_size(filename);
 
     if(package_size == ERR_FILEREAD){
-        return_value = ERR_NO_ALLOC;
+        return_value = ERR_FILEREAD;
         return return_value;
     }
     
@@ -73,6 +76,10 @@ int udp_pack_init(char *filename, struct udp_pack_data *udp_pack_data)
     udp_pack_data->raw_data = calloc(package_size, sizeof(uint8_t));
     udp_pack_data->ntoh_data = calloc(package_size, sizeof(uint8_t));
     
+    if((udp_pack_data->raw_data == NULL) && (udp_pack_data->ntoh_data == NULL)){
+        return_value = ERR_NO_ALLOC;
+        return return_value;
+    }
     if(package_cp_buffer(filename, udp_pack_data->raw_data) != 0){
         return_value = ERR_CPBUFFER;
         return return_value;
@@ -153,6 +160,8 @@ void udp_pack_print(struct udp_pack_data *udp_pack_data)
 
 
     printf("\n______________ U D P ______________\n");
+
+    printf("\nPackage total size: %d bytes\n\n", udp_pack_data->size);
 /*
     printf("\n\nNTOH DATA:\n");
     printf("\nPackage size: %d\n", udp_pack_data->size);
@@ -177,13 +186,17 @@ void udp_pack_print(struct udp_pack_data *udp_pack_data)
 
     printf("type: 0x%04x\n ",eth->type);
 
+    printf("\nIP protocol: \n");
 
     printf("Ip version:  0x%02x\n", ip->version);
     printf("Ip Type of service:  0x%02x\n", ip->type_of_sevice);
+
     printf("Ip Length:  %d\n", ip->length);
     printf("Ip identification:  0x%04x\n", ip->identification);
+
     printf("Ip flags:  0x%04x\n", ip->flags);
     printf("Ip time to live:  0x%02x\n", ip->time_to_live);
+
     printf("Ip protocol:  0x%02x\n", ip->protocol);
     printf("checksum ip:  0x%02x\n", ip->header_checksum);
     
@@ -191,11 +204,13 @@ void udp_pack_print(struct udp_pack_data *udp_pack_data)
     for(int i = 0; i < IP_ADDR_LEN; i++){
         printf("%d:", ip->source_addr[i]);
     }printf("\n");
-    
+
     printf("Destination address:\n");
     for(int i = 0; i < IP_ADDR_LEN; i++){
         printf("%d:", ip->destination_addr[i]);
     }printf("\n\n");
+
+    printf("\nUDP Protocol:\n");
 
     printf("\nUdp source address: 0x%04x ", udp->source_addr);
     printf("\nUdp destination address: 0x%04x", udp->destination_addr);

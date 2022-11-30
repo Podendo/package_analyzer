@@ -3,22 +3,21 @@
 
 #include <inttypes.h>
 #include <sys/stat.h>
-#include "package.h"
+#include "common.h"
 #include "ethernet.h"
 #include "udp.h"
 #include "ip.h"
 
 struct udp_pack_data{
     uint32_t size;
-    uint8_t *raw_data;
-    uint8_t *ntoh_data;
+    void *raw_data;
+    void *ntoh_data;
 };
+
 /** Returns size of package
- * TODO - maybe i should analyse raw package in package.c
- * for getting raw data to buffer, length, transport protocol?
-*/
-//static int udp_pack_get_size(char *filename);
-/**
+ * 
+ * static int udp_pack_get_size(char *filename);
+ * 
  * Use udp_pack get size to determine how much memory
  *  is required for udp_pack_data->raw_data/convdata
  *  to storedumped package. Results store in size
