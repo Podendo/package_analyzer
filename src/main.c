@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 
     udp_pack_parse(&my_udp);
 
-    udp_pack_print(&my_udp);
+    //udp_pack_print(&my_udp);
 
     tmp = udp_pack_deinit(&my_udp);
     if(tmp == PACK_FREE_SUCCESS){

@@ -2,6 +2,7 @@
 #define UDP_PACK_H_
 
 #include <inttypes.h>
+#include <sys/stat.h>
 #include "package.h"
 #include "ethernet.h"
 #include "udp.h"

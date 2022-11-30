@@ -2,6 +2,7 @@
 #define UDP_H_
 
 #define UDP_CODE_PHRASE "It is udp.h"
+#define UDP_HEADER_SIZE 0x08
 
 #include <inttypes.h>
 #include "common.h"

@@ -4,19 +4,25 @@
 int package_get_size(char *file_pack_pointer)
 {
     int package_size = 0;
-    char package_data = 0;
 
-    FILE *fp;
+    FILE *fp = NULL;
     fp = fopen(file_pack_pointer, "rb");
     if(fp == NULL){
         return ERR_FILEREAD;
     }
 
-    while(package_data != EOF){
-        package_data = fgetc(fp);
-        package_size += 1;
+    if(fseek(fp, 0, SEEK_END) == -1){
+        return ERR_FILEREAD;
     }
-    fclose(fp);
+
+    package_size = ftell(fp);
+    if(package_size == -1){
+        return ERR_FILEREAD;
+    }
+
+    if(fclose(fp) != 0){
+        return ERR_FILEREAD;
+    }
 
     return package_size;
 }
@@ -54,9 +60,8 @@ int package_cp_buffer(char *file_pack_pointer, uint8_t *p_pack_buffer)
         return_value = ERR_FILEREAD;
         goto error_point;
     }
-    for(int i = 0; i < package_size - 1; i++){
+    for(int i = 0; i < package_size; i++){
         p_pack_buffer[i] = (fgetc(fp));
-        //printf("%02x ", p_pack_buffer[i]);
     }
     
     return_value = FILE_READ_SUCCESS;
