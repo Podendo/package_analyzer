@@ -1,0 +1,208 @@
+#! /bin/bash
+
+#set - - var $! is unboud ???
+
+PARS_DIRS=$(pwd);
+ELF_FILE=$PARS_DIRS/ans;
+PACK_DIR=$PARS_DIRS/testpack;
+PACK_NUM=$(ls $PACK_DIR | wc -l);
+
+FILE_TMP=tmpfile;
+
+declare -a ARR_FILTERS
+declare -a ARR_MATCHES
+declare -a ARR_FILES
+
+function update_menu_main()
+{
+    clear
+    echo "1) filter_Ethernet"
+    echo "2) filter_IP"
+    echo "3) filter_UDP"
+    echo "4) find filtered"
+    echo "5) quit"
+}
+
+function update_menu_ip()
+{
+    clear
+    echo "1) filter source address"
+    echo "2) filter destination address"
+    echo "3) back"
+}
+
+function update_menu_eth()
+{
+    clear
+    echo "1) filter source MAC"
+    echo "2) filter destination MAC"
+    echo "3) back"
+}
+
+function update_menu_udp()
+{
+    clear
+    echo "1) filter udp source"
+    echo "2) filter udp destination"
+    echo "3) back"
+}
+
+
+function filtering_files()
+{
+    if [ -z "$ARR_FILTERS" ]; then
+    echo filter array is empty!
+    exit 1
+    else
+    echo filters are set, trying to find matched packages...
+    sleep 1s 
+    fi
+
+    echo  chosen filters:
+    echo "${ARR_FILTERS[@]}"
+    sleep 1s
+    #Create temporary file for storing program output from call to call
+    touch $FILE_TMP
+
+    for file in $PACK_DIR//*;
+    do
+    ARR_FILES=(${ARR_FILES[@]} "$file")
+    done
+
+    echo founded packages:
+    echo ${ARR_FILES[@]}
+    echo
+    sleep 1s
+    echo chosen filters:
+    echo ${ARR_FILTERS[@]}
+    sleep 1s
+    #prep filters array for grep command: adding -e option for each element
+    FILTERS=${ARR_FILTERS[@]/#/-e }
+
+    #calling program with every file as input, store output in tmp file,
+    #   searching for matches and adding them to $ARR_MATCHES
+    echo trying to find what you want:
+    echo
+    sleep 1s
+    for file in ${ARR_FILES[@]:0:$PACK_NUM};
+    do
+        $ELF_FILE $file > $FILE_TMP
+        wait $!
+        if grep -i $FILTERS $FILE_TMP; then
+            ARR_MATCHES=(${ARR_MATCHES[@]} "$file")
+            echo "match in file $file"
+            echo " "
+        else
+            echo "no match in file $file"
+            echo " "
+        fi
+    done
+    echo Done!
+    sleep 1s
+    echo Filters matched next files: ${ARR_MATCHES[@]}
+    rm $FILE_TMP
+}
+
+
+echo Number of raw packages found: $PACK_NUM
+
+select option in filter_Ethernet filter_IP filter_UDP find_filtered quit; do
+    case $option in
+    filter_Ethernet)
+        echo "this is Ethernet filtering submenu:"
+        select opt in filter_source_MAC filter_destination_MAC back; do
+            case $opt in
+            filter_source_MAC)
+                echo "Input MAC source address in hex format (aa:bb:cc:dd:ee):"
+                read -p "Ethernet MAC address to search:" srcmac
+                ARR_FILTERS=(${ARR_FILTERS[@]} "$srcmac")
+                update_menu_eth
+                ;;
+            filter_destination_MAC)
+                echo "Input MAC destination address in hex format (aa:bb:cc:dd:ee):"
+                read -p "Ethernet MAC address to search:" dstmac
+                ARR_FILTERS=(${ARR_FILTERS[@]} "$dstmac")
+                update_menu_eth
+                ;;
+            back)
+                update_menu_main
+                break
+                ;;
+            *)
+                echo invalid option
+                ;;
+            esac
+        done
+        ;;
+
+    filter_IP)
+        echo "this is IP filtering submenu:"
+        select opt in filter_source_address filter_destination_address move_back; do
+            case $opt in
+            filter_source_address)
+                echo "Input source address as an example: 000:111:22:33"
+                read -p "IP address to search:" srcip
+                ARR_FILTERS=(${ARR_FILTERS[@]} "$srcip")
+                update_menu_ip
+                ;;
+            filter_destination_address)
+                echo "Input destination address as in example: 000:111:22:33 (decimal)"
+                read -p "IP address to search:" dstip
+                ARR_FILTERS=(${ARR_FILTERS[@]} "$dstip")
+                update_menu_ip
+                ;;
+            move_back)
+                update_menu_main
+                break
+                ;;
+            *)
+                echo invalid option
+                ;;
+            esac
+        done
+        ;;
+    filter_UDP)
+        echo "This is UDP filtering submenu:"
+        select opt in filter_udp_source filter_udp_destination back; do
+            case $opt in
+            filter_udp_source)
+                echo "Input source address as an example: 0xaabb (in hex)"
+                read -p "udp source address in hex (2 bytes):" srcudp
+                ARR_FILTERS=(${ARR_FILTERS[@]} "$srcudp")
+                update_menu_udp
+                ;;
+            filter_udp_destination)
+                echo "Input destination address as an example: 0xaabb (in hex)"
+                read -p "udp destination address in hex (2 bytes)" dstudp
+                ARR_FILTERS=(${ARR_FILTERS[@]} "$dstudp")
+                update_menu_udp
+                ;;
+            back)
+                update_menu_main
+                break
+                ;;
+            *)
+                echo invalid option
+                ;;
+            esac
+        done
+        ;;
+    find_filtered)
+        clear
+        filtering_files
+        break
+        ;;
+    quit)
+        break
+        ;;
+    *)
+        echo invalid option
+        ;;
+    esac
+done
+
+
+
+exit 0 
+
+# END OF FILE
