@@ -204,19 +204,19 @@ void udp_pack_print(struct udp_pack_data *udp_pack_data)
     
     printf("\nip source address:\t");
     for(int i = 0; i < IP_ADDR_LEN; i++){
-        printf("%d:", ip->source_addr[i]);
+        printf("%d.", ip->source_addr[i]);
     }printf("\n");
 
     printf("ip destination address:\t");
     for(int i = 0; i < IP_ADDR_LEN; i++){
-        printf("%d:", ip->destination_addr[i]);
+        printf("%d.", ip->destination_addr[i]);
     }printf("\n\n");
 
     printf("\nUDP Protocol:\n");
 
-    printf("\nudp source address: 0x%04x ", udp->source_addr);
-    printf("\nudp destination address: 0x%04x", udp->destination_addr);
-    printf("\nudp length: %d (bytes)", udp->length);
+    printf("\nudp source address:\t%04x ", udp->source_addr);
+    printf("\nudp destination address:\t%04x", udp->destination_addr);
+    printf("\nudp length:\t\t %d (bytes)", udp->length);
     printf("\nudp checksum: 0x%04x", udp->checksum);
 
     printf("\nudp data:\n");

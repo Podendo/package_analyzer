@@ -140,13 +140,13 @@ select option in filter_Ethernet filter_IP filter_UDP find_filtered quit; do
         select opt in filter_source_address filter_destination_address move_back; do
             case $opt in
             filter_source_address)
-                echo "Input source address as an example: 000:111:22:33"
+                echo "Input source address as an example: 000.111.22.33 (decimal)"
                 read -p "IP address to search:" srcip
                 ARR_FILTERS=(${ARR_FILTERS[@]} "$srcip")
                 update_menu_ip
                 ;;
             filter_destination_address)
-                echo "Input destination address as in example: 000:111:22:33 (decimal)"
+                echo "Input destination address as an example: 000.111.22.33 (decimal)"
                 read -p "IP address to search:" dstip
                 ARR_FILTERS=(${ARR_FILTERS[@]} "$dstip")
                 update_menu_ip
@@ -200,8 +200,6 @@ select option in filter_Ethernet filter_IP filter_UDP find_filtered quit; do
         ;;
     esac
 done
-
-
 
 exit 0 
 

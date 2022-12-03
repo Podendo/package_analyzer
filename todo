@@ -2,6 +2,7 @@ Bash script: create a menu for user, for selecting different types of filters
 Filter: set protocol field, fore example, MAC address, parse packages and find
 those that contain same values, the output is names of those packages
 
+bash script filter:
 
 1) menus and submneus
 
@@ -13,3 +14,17 @@ those that contain same values, the output is names of those packages
 
 5) out from menu, printf this package list
 
+!!! Add filtering current protocol fields using regex or += - check both
+
+
+______________________________________________________________________________________
+
+bash script filter:
+
+0) alt version of filter script
+
+1) have own functions for searching each protocol and current field
+
+2) in filtering loop checks arrays for filters and calls eq functions
+
+3) greps protocol name and filters (in function)
