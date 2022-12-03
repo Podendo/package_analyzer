@@ -219,7 +219,7 @@ void udp_pack_print(struct udp_pack_data *udp_pack_data)
     printf("\nudp length:\t\t %d (bytes)", udp->length);
     printf("\nudp checksum: 0x%04x", udp->checksum);
 
-    printf("\nudp data:\n");
+    printf("\npackage data:\n");
     for(int i = 0; i < udp->length - UDP_HEADER_SIZE; i++){
         if(i % 8 == 0) printf("\t");
         if(i % 16 == 0) printf("\n");

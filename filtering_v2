@@ -20,15 +20,17 @@ declare -a ARR_FILES
 declare -a ARR_ETH_FILTERS
 declare -a ARR_IP_FILTERS
 declare -a ARR_UDP_FILTERS
-###############################################################################
+
+########################## E N D   V A R I A B L E S ##########################
 
 ############################## F U N C T I O N S ##############################
 
-#error handler print-out
+# error handler print-out
 err()
 {
   echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2
 }
+
 
 function update_menu_main()
 {
@@ -43,6 +45,7 @@ function update_menu_main()
   
 }
 
+
 function update_menu_eth()
 {
   clear
@@ -52,6 +55,7 @@ function update_menu_eth()
   echo "2) filter destination ethernet MAC address"
   echo "3) go back"
 }
+
 
 function update_menu_ip()
 {
@@ -63,6 +67,7 @@ function update_menu_ip()
   echo "3) go back"
 }
 
+
 function update_menu_udp()
 {
   clear
@@ -72,14 +77,15 @@ function update_menu_udp()
   echo "3) go back"
 }
 
+
 function filtering_all()
 {
   if [ -z "$ARR_FILTERS"]; then
-  err "Error! Filter array is empty!"
-  exit 1
+    err "Error! Filter array is empty!"
+    exit 1
   else
-  echo "Filters are set, trying to find matched packages..."
-  sleep 1s
+    echo "Filters are set, trying to find matched packages..."
+    sleep 1s
   fi
 
   clear
@@ -91,7 +97,7 @@ function filtering_all()
   # Add packages from package directory to array
   for file in $PACK_DIR//*;
   do
-  ARR_FILES=(${ARR_FILES[@]} "$file")
+    ARR_FILES=(${ARR_FILES[@]} "$file")
   done
 
   echo "Founded packages:"
@@ -111,10 +117,10 @@ function filtering_all()
     $ELF_FILE $file > $FILE_TMP
     wait $!
     if grep -i $FILTERS $FILE_TMP; then
-     ARR_MATCHES=(${ARR_MATCHES[@]} "$file")
-     echo
-     echo "match in file: $file"
-     echo
+      ARR_MATCHES=(${ARR_MATCHES[@]} "$file")
+      echo
+      echo "match in file: $file"
+      echo
     fi
   done
   echo "Done!"
@@ -123,7 +129,46 @@ function filtering_all()
   rm $FILE_TMP
 }
 
-###############################################################################
+
+function filtering_udp()
+{
+  if [ -z "$ARR_UDP_FILTERS" ]; then
+    err "There is no Ethernet filters!"
+    exit 1
+  else
+    echo "Trying to find Ethernet matches"
+  fi
+
+  sleep 1s
+  touch $FILE_TMP
+
+  for file in $PACK_DIR//*;
+  do
+    ARR_FILES=(${ARR_FILES[@]} "$file")
+  done
+
+  FILTERS=${ARR_UDP_FILTERS[@]/#/-e }
+  for file in ${ARR_FILES[@]:0:$PACK_NUM};
+  do
+    $ELF_FILE $file > $FILE_TMP
+    wait $!
+    if grep -q -i "udp" $FILE_TMP && grep -i $FILTERS $FILE_TMP; then
+      ARR_MATCHES=(${ARR_MATCHES[@]} "$file")
+      echo "match in file $file"
+      echo
+    else
+      echo "no match in file $file"
+      echo
+    fi
+  done
+  sleep 1s
+  echo "udp filtering result packages: ${ARR_MATCHES[@]}"
+  rm $FILE_TMP
+}
+
+
+########################## E N D   F U N C T I O N S ##########################
+
 
 ###############################################################################
 # !!! This is the main body of the script. It has a built in menu with submenus
@@ -243,6 +288,7 @@ case $option in
     clear
     echo "Function is not ready ctrl+c to quit"
     filtering_all
+    #filtering_udp
     break
     ;;
   quit)
