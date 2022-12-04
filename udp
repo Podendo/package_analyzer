@@ -1,0 +1,115 @@
+udp_pack_size: 74
+
+______________ U D P ______________
+
+Package total size: 74 bytes
+
+
+
+Ethernet protocol:
+ethernet source address:	10:a3:b8:0a:ee:48:
+ethernet destination address:	b0:a4:60:16:71:82:
+Ethernet type: 0x0800
+ 
+IP protocol: 
+ip version:  0x45
+ip Type of service:  0x00
+ip Length:  60
+ip identification:  0x0000
+ip flags:  0x4000
+ip time to live:  0x00
+ip protocol:  0x11
+checksum ip:  0xc957
+
+ip source address:	142.251.39.78.
+ip destination address:	192.168.1.104.
+
+
+UDP Protocol:
+
+udp source address:	01bb 
+udp destination address:	c4bc
+udp length:		 40 (bytes)
+udp checksum: 0x01d8
+package data:
+	
+45 2f 0a 7f e9 d9 d7 e0 	61 ad 82 e5 13 3a d8 8c 	
+6e ab c2 55 a3 73 39 79 	26 72 24 df 97 07 ec ea 
+ tmp udp_pack_deinit result is: 2
+udp_pack_size: 75
+
+______________ U D P ______________
+
+Package total size: 75 bytes
+
+
+
+Ethernet protocol:
+ethernet source address:	44:af:28:0b:20:0c:
+ethernet destination address:	94:87:e0:4a:ac:14:
+Ethernet type: 0x0800
+ 
+IP protocol: 
+ip version:  0x45
+ip Type of service:  0x00
+ip Length:  61
+ip identification:  0x31e6
+ip flags:  0x4000
+ip time to live:  0x00
+ip protocol:  0x11
+checksum ip:  0x5fbb
+
+ip source address:	192.168.43.95.
+ip destination address:	172.217.16.46.
+
+
+UDP Protocol:
+
+udp source address:	a554 
+udp destination address:	01bb
+udp length:		 41 (bytes)
+udp checksum: 0xa949
+package data:
+	
+5f c0 e4 8a 7c c6 cd be 	77 e4 b0 67 9b 37 c2 22 	
+cb 9c 1a d0 b9 e0 62 e1 	52 f1 c0 65 03 7c c3 7a 	
+27 
+ tmp udp_pack_deinit result is: 2
+udp_pack_size: 67
+
+______________ U D P ______________
+
+Package total size: 67 bytes
+
+
+
+Ethernet protocol:
+ethernet source address:	94:87:e0:4a:ac:14:
+ethernet destination address:	44:af:28:0b:20:0c:
+Ethernet type: 0x0800
+ 
+IP protocol: 
+ip version:  0x45
+ip Type of service:  0x80
+ip Length:  53
+ip identification:  0x0000
+ip flags:  0x4000
+ip time to live:  0x00
+ip protocol:  0x11
+checksum ip:  0xb6c
+
+ip source address:	142.250.186.202.
+ip destination address:	192.168.43.95.
+
+
+UDP Protocol:
+
+udp source address:	01bb 
+udp destination address:	98f1
+udp length:		 33 (bytes)
+udp checksum: 0xf5cf
+package data:
+	
+42 d3 65 10 d0 2b 17 b6 	d1 dd 90 ca d2 9d 0f 60 	
+af 45 21 69 75 b8 47 8f 	d7 
+ tmp udp_pack_deinit result is: 2

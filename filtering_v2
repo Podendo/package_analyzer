@@ -80,7 +80,7 @@ function update_menu_udp()
 
 function filtering_all()
 {
-  if [ -z "$ARR_FILTERS"]; then
+  if [ -z "$ARR_FILTERS" ]; then
     err "Error! Filter array is empty!"
     exit 1
   else
@@ -88,7 +88,7 @@ function filtering_all()
     sleep 1s
   fi
 
-  clear
+  #clear
   echo "Chosen filters:"
   echo "${ARR_FILTERS[@]}"
   sleep 1s
@@ -129,7 +129,9 @@ function filtering_all()
   rm $FILE_TMP
 }
 
-
+###############################################################################
+# This function is a draft, script does
+# not work with it, use filtering_all()
 function filtering_udp()
 {
   if [ -z "$ARR_UDP_FILTERS" ]; then
@@ -165,7 +167,7 @@ function filtering_udp()
   echo "udp filtering result packages: ${ARR_MATCHES[@]}"
   rm $FILE_TMP
 }
-
+###############################################################################
 
 ########################## E N D   F U N C T I O N S ##########################
 
@@ -191,16 +193,22 @@ case $option in
       mac_source)
         echo "Input MAC source address in hex format (aa:bb:cc:dd:ee):"
         read -p "Ethernet MAC address to search:" srcmac
-        ARR_FILTERS=(${ARR_FILTERS[@]} "$srcmac")
-        ARR_ETH_FILTERS=(${ARR_ETH_FILTERS[@]} "$srcmac")
+
+        filter="^ethernet.*source.*address.*"
+        filter+=$srcmac
+        ARR_FILTERS=(${ARR_FILTERS[@]} "$filter")
+        ARR_ETH_FILTERS=(${ARR_ETH_FILTERS[@]} "$filter")
         #TO-DO - add prefix to search current field!
         update_menu_eth
         ;;
       mac_destination)
         echo "Input MAC destination address in hex format (aa:bb:cc:dd:ee):"
         read -p "Ethernet MAC address to search:" dstmac
-        ARR_FILTERS=(${ARR_FILTERS[@]} "$dstmac")
-        ARR_ETH_FILTERS=(${ARR_ETH_FILTERS} "$dstmac")
+
+        filter="^ethernet.*destination.*address.*"
+        filter+=$dstmac
+        ARR_FILTERS=(${ARR_FILTERS[@]} "$filter")
+        ARR_ETH_FILTERS=(${ARR_ETH_FILTERS} "$filter")
         #TO-DO - add prefix to search current field!
         update_menu_eth
         ;;
@@ -225,17 +233,22 @@ case $option in
     ip_source)
       echo "Input source address as an example: 000.111.22.33:"
       read -p "IP source address to search:" srcip
-      ARR_FILTERS=(${ARR_FILTERS[@]} "$srcip")
-      ARR_IP_FILTERS=(${ARR_IP_FILTERS[@]} "$srcip")
+
+      filter='^ip.*source.*address.*'
+      filter+=$srcip
+      ARR_FILTERS=(${ARR_FILTERS[@]} "$filter")
+      ARR_IP_FILTERS=(${ARR_IP_FILTERS[@]} "$filter")
       #TO-DO - add prefix to search current field!
       update_menu_ip
       ;;
     ip_destination)
       echo "Input destination address as an example: 000.111.22.33:"
       read -p "IP destination address to search:" dstip
-      ARR_FILTERS=(${ARR_FILTERS[@]} "$dstip")
-      ARR_IP_FILTERS=(${ARR_IP_FILTERS[@]} "$dstip")
-      #TO-DO - add prefix to search current field!
+
+      filter='^ip.*destination.*address.*'
+      filter+=$dstip
+      ARR_FILTERS=(${ARR_FILTERS[@]} "$filter")
+      ARR_IP_FILTERS=(${ARR_IP_FILTERS[@]} "$filter")
       update_menu_ip
       ;;
     go_back)
@@ -256,19 +269,23 @@ case $option in
     select opt in udp_source udp_destination go_back; do
     case $opt in
       udp_source)
-       echo "Input source address as an example: aabb (in hex)"
-       read -p "udp source address in hex (2 bytes):" srcudp
-       ARR_FILTERS=(${ARR_FILTERS[@]} "$srcudp")
-       ARR_UDP_FILTERS=(${ARR_UDP_FILTERS[@]} "$srcudp")
-       #TO-DO - add prefix to search current field!
-       update_menu_udp
-       ;;
+        echo "Input source address as an example: aabb (in hex)"
+        read -p "udp source address in hex (2 bytes):" srcudp
+        
+        filter="^udp.*source.*address.*"
+        filter+=$srcudp
+        ARR_UDP_FILTERS=(${ARR_UDP_FILTERS[@]} "$filter")
+        ARR_FILTERS=(${ARR_FILTERS[@]} "$filter")
+        update_menu_udp
+        ;;
       udp_destination)
         echo "Input destination address as an example: aabb (in hex)"
         read -p "udp destination address in hex (2 bytes):" dstudp
-        ARR_FILTERS=(${ARR_FILTERS[@]} "$dstudp")
-        ARR_UDP_FILTERS=(${ARR_UDP_FILTERS[@]} "$dstudp")
-        #TO-DO - add prefix to search current field!
+
+        filter="^udp.*destination.*address.*"
+        filter+=$dstudp
+        ARR_FILTERS=(${ARR_FILTERS[@]} "$filter")
+        ARR_UDP_FILTERS=(${ARR_UDP_FILTERS[@]} "$filter")
         update_menu_udp
         ;;
       go_back)
