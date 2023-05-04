@@ -1,4 +1,4 @@
-TARGET := ans
+TARGET := udp-parse
 
 SRC := ./src
 INC := ./inc
@@ -8,7 +8,7 @@ SRC_DIR := $(shell find $(SRC) -type d)
 INC_DIR := $(shell find $(INC) -type d)
 
 CC = gcc
-CCFLAGS := -Wall -Wextra -g 
+CCFLAGS := -Wall -Wextra -g
 
 CPPFLAGS := $(addprefix -I,$(INC_DIR))
 
@@ -23,4 +23,4 @@ $(TARGET): $(SOURCES)
 
 .PHONY: clean
 clean:
-	rm ./$(TARGET)
+	@rm ./$(TARGET)

@@ -1,7 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define MAIN_CODE_PHRASE "It is main.h"
+#define MAIN_CODE_PHRASE	"It is main.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,5 +9,4 @@
 
 #include "udp_pack.h"
 
-#endif /*MAIN_H*/
-/*END OF FILE*/
+#endif /* MAIN_H */
