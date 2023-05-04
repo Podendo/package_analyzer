@@ -35,29 +35,29 @@
 		(LC_BYTE << 8) | (L_BYTE)				\
 
 
-#define FILE_READ_SUCCESS		0
-#define PACK_FREE_SUCCESS		2
-#define PACK_ALLOC_SUCCESS		4
+#define FILE_READ_SUCCESS		(0)
+#define PACK_FREE_SUCCESS		(2)
+#define PACK_ALLOC_SUCCESS		(4)
 
-#define ERR_FILEREAD			-1
-#define ERR_CPBUFFER			-2
-#define ERR_NO_ALLOC			-3
-#define ERR_WRONG_PACK			-4
+#define ERR_FILEREAD			(-1)
+#define ERR_CPBUFFER			(-2)
+#define ERR_NO_ALLOC			(-3)
+#define ERR_WRONG_PACK			(-4)
 
-#define PACK_MINLEN			0x18
-#define PACK_HOPOPT			0x00
-#define PACK_ICMP			0x01
-#define PACK_IGMP			0x02
-#define PACK_GGP			0x03
-#define PACK_TCP			0x06
-#define PACK_UDP			0x11
-#define PACK_RDP			0x1B
-#define PACK_DCCP			0x33
-#define PACK_IPV6			0x29
-#define PACK_UDPLite			0x88
-#define PACK_ENCAP			0x29
-#define PACK_OSPF			0x59
-#define PACK_SCTP			0x84
+#define PACK_MINLEN			(0x18)
+#define PACK_HOPOPT			(0x00)
+#define PACK_ICMP			(0x01)
+#define PACK_IGMP			(0x02)
+#define PACK_GGP			(0x03)
+#define PACK_TCP			(0x06)
+#define PACK_UDP			(0x11)
+#define PACK_RDP			(0x1B)
+#define PACK_DCCP			(0x33)
+#define PACK_IPV6			(0x29)
+#define PACK_UDPLite			(0x88)
+#define PACK_ENCAP			(0x29)
+#define PACK_OSPF			(0x59)
+#define PACK_SCTP			(0x84)
 
 #include <stdio.h>
 #include <stdlib.h>
